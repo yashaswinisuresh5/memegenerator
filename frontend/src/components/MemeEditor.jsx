@@ -19,7 +19,9 @@ const MemeEditor = ({ template }) => {
         outlineColor: '#000000',
         topPos: { x: null, y: null },
         bottomPos: { x: null, y: null },
-        filter: 'none'
+        filter: 'none',
+        neon: false,
+        stickers: []
     });
 
     const [dragging, setDragging] = useState(null);
@@ -41,7 +43,9 @@ const MemeEditor = ({ template }) => {
             outlineColor: '#000000',
             topPos: { x: null, y: null },
             bottomPos: { x: null, y: null },
-            filter: 'none'
+            filter: 'none',
+            neon: false,
+            stickers: []
         });
     };
 
@@ -58,7 +62,14 @@ const MemeEditor = ({ template }) => {
         const topY = config.topPos.y || 20;
         const bottomY = config.bottomPos.y || canvas.height - (config.fontSize + 20);
         
-        if (Math.abs(mouseY - topY) < config.fontSize + 20) {
+        // Check stickers first (top-most layer)
+        const stickerIndex = config.stickers.findIndex(s => 
+            Math.sqrt(Math.pow(mouseX - s.x, 2) + Math.pow(mouseY - s.y, 2)) < (s.size || 80) / 2
+        );
+
+        if (stickerIndex !== -1) {
+            setDragging({ type: 'sticker', index: stickerIndex });
+        } else if (Math.abs(mouseY - topY) < config.fontSize + 20) {
             setDragging('top');
         } else if (Math.abs(mouseY - bottomY) < config.fontSize + 20) {
             setDragging('bottom');
@@ -74,10 +85,16 @@ const MemeEditor = ({ template }) => {
         const mouseX = (e.clientX - rect.left) * scaleX;
         const mouseY = (e.clientY - rect.top) * scaleY;
 
-        setConfig(prev => ({
-            ...prev,
-            [`${dragging}Pos`]: { x: mouseX, y: mouseY }
-        }));
+        if (typeof dragging === 'object' && dragging.type === 'sticker') {
+            const newStickers = [...config.stickers];
+            newStickers[dragging.index] = { ...newStickers[dragging.index], x: mouseX, y: mouseY };
+            setConfig(prev => ({ ...prev, stickers: newStickers }));
+        } else {
+            setConfig(prev => ({
+                ...prev,
+                [`${dragging}Pos`]: { x: mouseX, y: mouseY }
+            }));
+        }
     };
 
     const handleMouseUp = () => setDragging(null);
@@ -112,6 +129,18 @@ const MemeEditor = ({ template }) => {
         }
     };
 
+    const handleAddSticker = (emoji) => {
+        const canvas = canvasRef.current;
+        const x = canvas ? canvas.width / 2 : 100;
+        const y = canvas ? canvas.height / 2 : 100;
+        setConfig(prev => ({
+            ...prev,
+            stickers: [...prev.stickers, { emoji, x, y, size: 80 }]
+        }));
+    };
+
+    const emojis = ['🔥', '😂', '💀', '🤡', '🚀', '🌈', '💯', '✨', '👑', '🐶', '🍕', '😎'];
+
     const filterList = [
         { name: 'None', value: 'none' },
         { name: 'Mono', value: 'grayscale(1)' },
@@ -142,9 +171,9 @@ const MemeEditor = ({ template }) => {
                             ref={canvasRef}
                             className="max-w-full max-h-[70vh] object-contain shadow-2xl rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
                         />
-                        {!dragging && config.topText && (
+                        {!dragging && (config.topText || config.stickers.length > 0) && (
                             <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                                Drag to move text
+                                Drag text or stickers to move
                             </div>
                         )}
                     </div>
@@ -155,9 +184,21 @@ const MemeEditor = ({ template }) => {
             <div className="w-full lg:w-[400px] shrink-0">
                 <div className="bg-white/80 backdrop-blur-md rounded-[2.5rem] p-8 shadow-xl border border-white/50 sticky top-24">
                     <div className="mb-6 pb-6 border-b border-rose-100/50">
-                        <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 flex items-center gap-2">
-                            <Settings className="text-rose-500" /> Editor
-                        </h2>
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 flex items-center gap-2">
+                                <Settings className="text-rose-500" /> Editor
+                            </h2>
+                            <button 
+                                onClick={() => setConfig(prev => ({ ...prev, neon: !prev.neon }))}
+                                className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-inner transition-all ${
+                                    config.neon 
+                                        ? 'bg-rose-500 text-white animate-pulse' 
+                                        : 'bg-slate-100 text-slate-400'
+                                }`}
+                            >
+                                Neon {config.neon ? 'ON' : 'OFF'}
+                            </button>
+                        </div>
                         <p className="text-slate-500 text-xs font-semibold mt-1 line-clamp-1 italic">{template.name}</p>
                     </div>
 
@@ -229,6 +270,22 @@ const MemeEditor = ({ template }) => {
                                 onChange={handleConfigChange}
                                 className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-purple-600 transition-all"
                             />
+                        </div>
+
+                        {/* Emoji Stickers */}
+                        <div>
+                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Add Stickers</label>
+                            <div className="flex flex-wrap gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                                {emojis.map(emoji => (
+                                    <button
+                                        key={emoji}
+                                        onClick={() => handleAddSticker(emoji)}
+                                        className="text-2xl hover:scale-125 transition-transform active:scale-95"
+                                    >
+                                        {emoji}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Color Selectors */}

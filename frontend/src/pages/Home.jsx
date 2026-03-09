@@ -58,7 +58,7 @@ const Home = () => {
     return (
         <div className="pb-16 animate-in fade-in duration-500">
             {/* Header Section */}
-            <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] p-10 mb-10 shadow-2xl shadow-rose-200/20 border border-white/80 mt-4 text-center relative overflow-hidden">
+            <div className="magic-surface rounded-[3rem] p-10 mb-10 mt-4 text-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 -m-20 w-80 h-80 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
                 <div className="absolute bottom-0 left-0 -m-20 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>

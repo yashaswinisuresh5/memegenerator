@@ -11,9 +11,9 @@ const MemeCard = ({ meme, onSelect }) => {
     return (
         <Wrapper
             {...props}
-            className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            className="group block bg-white/20 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
         >
-            <div className="aspect-[4/5] relative bg-slate-50 overflow-hidden">
+            <div className="aspect-[4/5] relative bg-transparent overflow-hidden">
                 <img
                     src={meme.url || meme.imageUrl}
                     alt={meme.name || 'Meme'}
@@ -27,7 +27,7 @@ const MemeCard = ({ meme, onSelect }) => {
                 </div>
             </div>
             {meme.name && (
-                <div className="p-4 bg-white border-t border-gray-50">
+                <div className="p-4 bg-white/10 border-t border-white/10">
                     <h3 className="font-semibold text-slate-800 line-clamp-1 group-hover:text-brand-blue-600 transition-colors">
                         {meme.name}
                     </h3>

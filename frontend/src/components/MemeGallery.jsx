@@ -3,7 +3,7 @@ import MemeCard from './MemeCard';
 const MemeGallery = ({ memes, onSelect }) => {
     if (!memes || memes.length === 0) {
         return (
-            <div className="text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm mt-8">
+            <div className="text-center py-20 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 shadow-sm mt-8">
                 <p className="text-slate-500 font-medium">No memes found.</p>
             </div>
         );

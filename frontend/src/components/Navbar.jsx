@@ -15,15 +15,15 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <nav className="bg-white/70 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex-shrink-0 flex items-center">
                         <Link to="/" className="flex items-center gap-2 group">
-                            <div className="bg-brand-blue-600 text-white p-1.5 rounded-lg group-hover:bg-brand-blue-700 transition">
-                                <Image size={24} className="transform group-hover:rotate-12 transition" />
+                            <div className="bg-gradient-to-br from-rose-500 to-purple-600 text-white p-1.5 rounded-lg group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-rose-500/20">
+                                <Image size={24} />
                             </div>
-                            <span className="font-bold text-xl tracking-tight text-slate-900">MemeBolt</span>
+                            <span className="font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Meme Magic</span>
                         </Link>
                     </div>
 

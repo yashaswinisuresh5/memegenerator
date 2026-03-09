@@ -24,7 +24,7 @@ const useCanvasMeme = (imageUrl, config) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         const image = imageRef.current;
-        const { topText, bottomText, fontSize, textColor, outlineColor, topPos, bottomPos, filter } = config;
+        const { topText, bottomText, fontSize, textColor, outlineColor, topPos, bottomPos, filter, neon, stickers = [] } = config;
 
         // Dimensions
         canvas.width = image.width;
@@ -45,8 +45,18 @@ const useCanvasMeme = (imageUrl, config) => {
         ctx.font = `900 ${fontSize}px Impact, Inter, sans-serif`;
 
         const drawTextWithOutline = (text, x, y, maxWidth) => {
+            if (neon) {
+                ctx.shadowBlur = fontSize / 2;
+                ctx.shadowColor = textColor;
+            } else {
+                ctx.shadowBlur = 0;
+            }
+            
             ctx.strokeText(text, x, y, maxWidth);
             ctx.fillText(text, x, y, maxWidth);
+            
+            // Reset shadow for next draw
+            ctx.shadowBlur = 0;
         };
 
         if (topText) {
@@ -62,6 +72,14 @@ const useCanvasMeme = (imageUrl, config) => {
             const y = bottomPos?.y ?? canvas.height - (fontSize + 20);
             drawTextWithOutline(bottomText.toUpperCase(), x, y, canvas.width - 40);
         }
+
+        // 3. Draw Stickers
+        stickers.forEach(sticker => {
+            ctx.font = `${sticker.size || 80}px serif`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            ctx.fillText(sticker.emoji, sticker.x, sticker.y);
+        });
 
     }, [imageLoaded, config]);
 

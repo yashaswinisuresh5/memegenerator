@@ -34,3 +34,7 @@ npm start
 ```
 
 *The full application (frontend interface + backend API) will now be running seamlessly at **http://localhost:5000***
+
+## 🚀 Deployment
+This project is pre-configured for **Vercel** (Frontend) and **Render** (Backend). 
+Check the [Deployment Guide](./deployment_guide.md) for step-by-step instructions.
