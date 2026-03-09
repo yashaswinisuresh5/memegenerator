@@ -63,9 +63,9 @@ const Home = () => {
                 <div className="absolute bottom-0 left-0 -m-20 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
                 
-                <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 via-indigo-400 to-emerald-400 mb-6 tracking-tight relative z-10 leading-tight">Meme Magic Studio</h1>
-                <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed">
-                    Unleash your creativity with AI-powered captions and vibrant filters.
+                <h1 className="text-6xl md:text-8xl font-black magic-text mb-6 tracking-tighter relative z-10 leading-[1.1] pb-2">Meme Magic Studio</h1>
+                <p className="text-white/60 text-xl font-medium max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed tracking-tight">
+                    Unleash your creativity with AI-powered captions, neon effects, and vibrant filters.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto relative z-10">
@@ -84,14 +84,13 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Search Section */}
-            <div className="relative max-w-2xl mx-auto mb-10 group">
-                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                    <Search className="h-6 w-6 text-slate-300 group-focus-within:text-rose-400 transition-colors" />
+            <div className="relative max-w-2xl mx-auto mb-16 group">
+                <div className="absolute inset-y-0 left-0 pl-7 flex items-center pointer-events-none">
+                    <Search className="h-6 w-6 text-white/20 group-focus-within:text-rose-400 transition-colors" />
                 </div>
                 <input
                     type="text"
-                    className="block w-full pl-14 pr-6 py-5 border-2 border-slate-100 rounded-[2rem] bg-white/90 backdrop-blur-md placeholder-slate-300 focus:outline-none focus:ring-4 focus:ring-rose-400/10 focus:border-rose-300 transition-all shadow-xl shadow-slate-200/20 text-xl font-medium"
+                    className="block w-full pl-16 pr-8 py-6 border border-white/10 rounded-[2.5rem] bg-white/[0.03] backdrop-blur-3xl placeholder-white/20 text-white focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500/30 transition-all shadow-2xl text-xl font-medium"
                     placeholder="Find your perfect template..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}

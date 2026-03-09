@@ -156,9 +156,9 @@ const MemeEditor = ({ template }) => {
             <div className="flex-1 lg:max-w-3xl flex flex-col items-center">
                 <button 
                     onClick={() => navigate(-1)}
-                    className="self-start mb-6 flex items-center gap-2 text-slate-500 hover:text-purple-600 transition-colors bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100 font-bold text-sm"
+                    className="self-start mb-6 flex items-center gap-2 text-white/50 hover:text-white transition-all bg-white/5 px-4 py-2 rounded-xl shadow-sm border border-white/10 font-black text-xs uppercase tracking-widest"
                 >
-                    <ArrowLeft size={18} /> Back to Gallery
+                    <ArrowLeft size={16} /> Back to Gallery
                 </button>
 
                 <div className="bg-checkered rounded-3xl p-4 md:p-8 w-full shadow-2xl shadow-purple-900/10 border border-white/50 flex flex-col items-center justify-center min-h-[500px] overflow-hidden sticky top-24 bg-white/40 backdrop-blur-sm relative group">
@@ -182,7 +182,7 @@ const MemeEditor = ({ template }) => {
 
             {/* Right Column: Editor Controls */}
             <div className="w-full lg:w-[400px] shrink-0">
-                <div className="bg-white/80 backdrop-blur-md rounded-[2.5rem] p-8 shadow-xl border border-white/50 sticky top-24">
+                <div className="magic-surface rounded-[2.5rem] p-8 sticky top-24">
                     <div className="mb-6 pb-6 border-b border-rose-100/50">
                         <div className="flex justify-between items-center">
                             <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 flex items-center gap-2">

@@ -19,11 +19,11 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex-shrink-0 flex items-center">
-                        <Link to="/" className="flex items-center gap-2 group">
-                            <div className="bg-gradient-to-br from-rose-500 to-purple-600 text-white p-1.5 rounded-lg group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-rose-500/20">
-                                <Image size={24} />
+                        <Link to="/" className="flex items-center gap-3 group">
+                            <div className="bg-gradient-to-br from-rose-500 via-fuchsia-500 to-indigo-600 text-white p-2 rounded-xl group-hover:rotate-12 transition-all duration-500 shadow-xl shadow-rose-500/20 group-hover:shadow-rose-500/40">
+                                <Image size={24} strokeWidth={3} />
                             </div>
-                            <span className="font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Meme Magic</span>
+                            <span className="font-black text-2xl tracking-tighter magic-text">Meme Magic</span>
                         </Link>
                     </div>
 
