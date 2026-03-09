@@ -64,7 +64,7 @@ const Home = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
                 
                 <h1 className="text-6xl md:text-8xl font-black magic-text mb-6 tracking-tighter relative z-10 leading-[1.1] pb-2">Meme Magic Studio</h1>
-                <p className="text-white/60 text-xl font-medium max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed tracking-tight">
+                <p className="text-slate-800 text-xl font-bold max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed tracking-tight opacity-80">
                     Unleash your creativity with AI-powered captions, neon effects, and vibrant filters.
                 </p>
                 
@@ -85,12 +85,12 @@ const Home = () => {
             </div>
 
             <div className="relative max-w-2xl mx-auto mb-16 group">
-                <div className="absolute inset-y-0 left-0 pl-7 flex items-center pointer-events-none">
-                    <Search className="h-6 w-6 text-white/20 group-focus-within:text-rose-400 transition-colors" />
+                <div className="absolute inset-y-0 left-0 pl-10 flex items-center pointer-events-none">
+                    <Search className="h-6 w-6 text-slate-400 group-focus-within:text-rose-500 transition-colors" />
                 </div>
                 <input
                     type="text"
-                    className="block w-full pl-16 pr-8 py-6 border border-white/10 rounded-[2.5rem] bg-white/[0.03] backdrop-blur-3xl placeholder-white/20 text-white focus:outline-none focus:ring-4 focus:ring-rose-500/10 focus:border-rose-500/30 transition-all shadow-2xl text-xl font-medium"
+                    className="block w-full pl-20 pr-10 py-7 border-4 border-white rounded-[3rem] bg-white/95 backdrop-blur-3xl placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-8 focus:ring-rose-500/10 focus:border-rose-100 transition-all shadow-2xl text-2xl font-black"
                     placeholder="Find your perfect template..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}

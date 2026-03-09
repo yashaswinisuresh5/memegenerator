@@ -185,49 +185,49 @@ const MemeEditor = ({ template }) => {
                 <div className="magic-surface rounded-[2.5rem] p-8 sticky top-24">
                     <div className="mb-6 pb-6 border-b border-rose-100/50">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 flex items-center gap-2">
-                                <Settings className="text-rose-500" /> Editor
+                            <h2 className="text-3xl font-black text-slate-800 flex items-center gap-3">
+                                <Settings className="text-rose-600" strokeWidth={3} /> Magic Editor
                             </h2>
                             <button 
                                 onClick={() => setConfig(prev => ({ ...prev, neon: !prev.neon }))}
-                                className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-inner transition-all ${
+                                className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl transition-all ${
                                     config.neon 
-                                        ? 'bg-rose-500 text-white animate-pulse' 
-                                        : 'bg-slate-100 text-slate-400'
+                                        ? 'bg-rose-600 text-white animate-pulse' 
+                                        : 'bg-slate-200 text-slate-500 hover:bg-slate-300'
                                 }`}
                             >
                                 Neon {config.neon ? 'ON' : 'OFF'}
                             </button>
                         </div>
-                        <p className="text-slate-500 text-xs font-semibold mt-1 line-clamp-1 italic">{template.name}</p>
+                        <p className="text-slate-500 text-sm font-bold mt-2 line-clamp-1 italic">{template.name}</p>
                     </div>
 
                     <div className="space-y-6">
                         {/* Text Inputs */}
                         <div className="grid grid-cols-1 gap-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                                    <Type size={14} className="text-blue-400" /> Top Text
+                                <label className="block text-xs font-black text-slate-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                    <Type size={14} className="text-rose-500" strokeWidth={3} /> Top Text
                                 </label>
                                 <input
                                     type="text"
                                     name="topText"
                                     value={config.topText}
                                     onChange={handleConfigChange}
-                                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm font-medium placeholder:text-slate-300"
+                                    className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:ring-8 focus:ring-rose-500/5 focus:border-rose-200 transition-all shadow-inner font-black text-slate-900 placeholder:text-slate-300"
                                     placeholder="Enter top text..."
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                                    <Type size={14} className="text-purple-400" /> Bottom Text
+                                <label className="block text-xs font-black text-slate-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                    <Type size={14} className="text-indigo-500" strokeWidth={3} /> Bottom Text
                                 </label>
                                 <input
                                     type="text"
                                     name="bottomText"
                                     value={config.bottomText}
                                     onChange={handleConfigChange}
-                                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all shadow-sm font-medium placeholder:text-slate-300"
+                                    className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:ring-8 focus:ring-indigo-500/5 focus:border-indigo-200 transition-all shadow-inner font-black text-slate-900 placeholder:text-slate-300"
                                     placeholder="Enter bottom text..."
                                 />
                             </div>

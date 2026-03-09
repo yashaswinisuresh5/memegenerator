@@ -20,9 +20,9 @@ body {
     radial-gradient(at 100% 0%, hsla(339,49%,25%,1) 0, transparent 60%), 
     radial-gradient(at 50% 50%, hsla(280,40%,20%,1) 0, transparent 70%),
     radial-gradient(at 0% 100%, hsla(339,49%,25%,1) 0, transparent 60%), 
-    radial-gradient(at 50% 100%, hsla(225,39%,25%,1) 0, transparent 60%), 
+    radial-gradient(at 50% 100%, hsla(225,34%,35%,1) 0, transparent 60%), 
     radial-gradient(at 100% 100%, hsla(253,16%,12%,1) 0, transparent 60%);
-  background-color: #05070a;
+  background-color: #020408;
   background-attachment: fixed;
   animation: mesh 40s ease-in-out infinite;
   background-size: 200% 200%;
@@ -36,21 +36,19 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Premium V4 "Senior" Surface */
+/* Premium V4 "Bold & Neat" Surface */
 .magic-surface {
-  @apply bg-white/[0.03] backdrop-blur-[32px] border border-white/10;
+  @apply bg-white/90 backdrop-blur-xl border border-white shadow-2xl;
   box-shadow: 
-    0 4px 24px -1px rgba(0, 0, 0, 0.2), 
-    0 2px 8px -1px rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 20px 50px -12px rgba(0, 0, 0, 0.25), 
+    0 8px 16px -8px rgba(0, 0, 0, 0.1);
 }
 
 .magic-surface:hover {
-  @apply border-white/20 bg-white/[0.05];
+  @apply bg-white border-rose-200/50;
   box-shadow: 
-    0 10px 40px -4px rgba(0, 0, 0, 0.3), 
-    0 4px 12px -2px rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 30px 60px -12px rgba(0, 0, 0, 0.35), 
+    0 12px 24px -8px rgba(0, 0, 0, 0.2);
 }
 
 .magic-text {
@@ -65,12 +63,9 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-serif);
+  @apply font-black text-slate-800 tracking-tighter;
 }
 
-/* Custom Cursor Reset */
-* {
-  cursor: none !important;
-}
 
 
 /* Custom scrollbar for modern feel */

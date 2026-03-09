@@ -27,8 +27,8 @@ const MemeCard = ({ meme, onSelect }) => {
                 </div>
             </div>
             {meme.name && (
-                <div className="p-4 bg-white/10 border-t border-white/10">
-                    <h3 className="font-semibold text-slate-800 line-clamp-1 group-hover:text-brand-blue-600 transition-colors">
+                <div className="p-5 bg-white border-t border-slate-50">
+                    <h3 className="font-black text-slate-900 line-clamp-1 group-hover:text-rose-600 transition-colors tracking-tight text-lg">
                         {meme.name}
                     </h3>
                 </div>
