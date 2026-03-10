@@ -69,7 +69,7 @@ const useCanvasMeme = (imageUrl, config) => {
         if (bottomText) {
             ctx.textBaseline = 'bottom';
             const x = bottomPos?.x ?? canvas.width / 2;
-            const y = bottomPos?.y ?? canvas.height - (fontSize + 20);
+            const y = bottomPos?.y ?? canvas.height - (Number(fontSize) + 20);
             drawTextWithOutline(bottomText.toUpperCase(), x, y, canvas.width - 40);
         }
 

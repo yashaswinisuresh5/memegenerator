@@ -31,7 +31,10 @@ const MemeEditor = ({ template }) => {
 
     const handleConfigChange = (e) => {
         const { name, value } = e.target;
-        setConfig(prev => ({ ...prev, [name]: value }));
+        setConfig(prev => ({ 
+            ...prev, 
+            [name]: name === 'fontSize' ? parseInt(value) || 0 : value 
+        }));
     };
 
     const handleReset = () => {
@@ -49,18 +52,31 @@ const MemeEditor = ({ template }) => {
         });
     };
 
-    const handleMouseDown = (e) => {
+    const getCoords = (e) => {
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        if (!canvas) return { x: 0, y: 0 };
         const rect = canvas.getBoundingClientRect();
+        
+        // Handle touch events
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
         const scaleX = canvas.width / rect.width;
         const scaleY = canvas.height / rect.height;
-        const mouseX = (e.clientX - rect.left) * scaleX;
-        const mouseY = (e.clientY - rect.top) * scaleY;
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY
+        };
+    };
+
+    const handleStart = (e) => {
+        const { x: mouseX, y: mouseY } = getCoords(e);
+        const canvas = canvasRef.current;
+        if (!canvas) return;
 
         // Detection logic for top/bottom text area
         const topY = config.topPos.y || 20;
-        const bottomY = config.bottomPos.y || canvas.height - (config.fontSize + 20);
+        const bottomY = config.bottomPos.y || canvas.height - (Number(config.fontSize) + 20);
         
         // Check stickers first (top-most layer)
         const stickerIndex = config.stickers.findIndex(s => 
@@ -76,14 +92,13 @@ const MemeEditor = ({ template }) => {
         }
     };
 
-    const handleMouseMove = (e) => {
+    const handleMove = (e) => {
         if (!dragging || !canvasRef.current) return;
-        const canvas = canvasRef.current;
-        const rect = canvas.getBoundingClientRect();
-        const scaleX = canvas.width / rect.width;
-        const scaleY = canvas.height / rect.height;
-        const mouseX = (e.clientX - rect.left) * scaleX;
-        const mouseY = (e.clientY - rect.top) * scaleY;
+        
+        // Prevent scrolling on mobile while dragging
+        if (e.cancelable) e.preventDefault();
+        
+        const { x: mouseX, y: mouseY } = getCoords(e);
 
         if (typeof dragging === 'object' && dragging.type === 'sticker') {
             const newStickers = [...config.stickers];
@@ -97,7 +112,7 @@ const MemeEditor = ({ template }) => {
         }
     };
 
-    const handleMouseUp = () => setDragging(null);
+    const handleEnd = () => setDragging(null);
 
     const handleAICaption = async () => {
         setIsGeneratingAI(true);
@@ -162,11 +177,14 @@ const MemeEditor = ({ template }) => {
                 </button>
 
                 <div className="bg-checkered rounded-3xl p-4 md:p-8 w-full shadow-2xl shadow-purple-900/10 border border-white/50 flex flex-col items-center justify-center min-h-[500px] overflow-hidden sticky top-24 bg-white/40 backdrop-blur-sm relative group">
-                    <div className="relative cursor-move select-none"
-                         onMouseDown={handleMouseDown}
-                         onMouseMove={handleMouseMove}
-                         onMouseUp={handleMouseUp}
-                         onMouseLeave={handleMouseUp}>
+                    <div className="relative touch-none cursor-move select-none"
+                         onMouseDown={handleStart}
+                         onMouseMove={handleMove}
+                         onMouseUp={handleEnd}
+                         onMouseLeave={handleEnd}
+                         onTouchStart={handleStart}
+                         onTouchMove={handleMove}
+                         onTouchEnd={handleEnd}>
                         <canvas
                             ref={canvasRef}
                             className="max-w-full max-h-[70vh] object-contain shadow-2xl rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
