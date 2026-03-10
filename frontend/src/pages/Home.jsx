@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getMemes, getRandomMeme } from '../services/api';
 import MemeGallery from '../components/MemeGallery';
 import Loader from '../components/Loader';
-import { Search, Shuffle, Upload as UploadIcon } from 'lucide-react';
+import { Search, Shuffle, Plus, TrendingUp, Zap, Image as ImageIcon } from 'lucide-react';
 
 const Home = () => {
     const [memes, setMemes] = useState([]);
@@ -35,7 +35,7 @@ const Home = () => {
         if (activeCategory === 'Animals') return name.match(/dog|cat|monkey|bird|bear|frog|animal/);
         if (activeCategory === 'Movies') return name.match(/spiderman|batman|star wars|lotr|matrix|simpsons|spongebob|movie|film/);
         if (activeCategory === 'Reactions') return name.match(/face|look|point|think|cry|happy|sad|smile|laugh/);
-        if (activeCategory === 'Trending') return meme.box_count > 2 || name.length < 15; // Rough heuristic for top/trending
+        if (activeCategory === 'Trending') return meme.box_count > 2 || name.length < 15;
         return true;
     };
 
@@ -53,69 +53,84 @@ const Home = () => {
     );
 
     if (loading) return <Loader message="Loading templates..." />;
-    if (error) return <div className="text-center py-10 text-red-500 font-medium">{error}</div>;
+    if (error) return <div className="text-center py-20 text-slate-500 font-medium">{error}</div>;
 
     return (
-        <div className="pb-16 animate-in fade-in duration-500">
-            {/* Header Section */}
-            <div className="magic-surface rounded-[3rem] p-10 mb-10 mt-4 text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 -m-20 w-80 h-80 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-                <div className="absolute bottom-0 left-0 -m-20 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-                
-                <h1 className="text-6xl md:text-8xl font-black magic-text mb-6 tracking-tighter relative z-10 leading-[1.1] pb-2">Meme Magic Studio</h1>
-                <p className="text-slate-800 text-xl font-bold max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed tracking-tight opacity-80">
-                    Unleash your creativity with AI-powered captions, neon effects, and vibrant filters.
+        <div className="pb-20">
+            {/* Hero Section */}
+            <div className="pt-12 pb-16 px-6 text-center max-w-4xl mx-auto">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-black uppercase tracking-wider mb-6 animate-fade-in">
+                    <Zap size={14} className="fill-indigo-600" /> AI-Powered Creativity
+                </div>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.1] animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    Create memes that <span className="magic-text">go viral.</span>
+                </h1>
+                <p className="text-slate-500 text-lg md:text-xl font-medium mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    The fastest, cleanest, and most powerful meme generator. Built for creators who demand the best.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto relative z-10">
-                    <button 
-                        onClick={handleRandomMeme}
-                        className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-rose-400 to-orange-400 hover:from-rose-500 hover:to-orange-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-rose-200/40 hover:shadow-rose-200/60 hover:-translate-y-1 active:scale-95"
-                    >
-                        <Shuffle size={22} /> Shuffle Magic
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                    <button onClick={handleRandomMeme} className="btn-primary w-full sm:w-auto h-14 px-10 text-lg">
+                        <Shuffle size={20} /> Surprise Me
                     </button>
-                    <button 
-                        onClick={() => navigate('/upload')}
-                        className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold rounded-xl transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95"
-                    >
-                        <UploadIcon size={20} /> Upload Image
+                    <button onClick={() => navigate('/upload')} className="btn-secondary w-full sm:w-auto h-14 px-10 text-lg border-2">
+                        <Plus size={22} /> Custom Upload
                     </button>
                 </div>
             </div>
 
-            <div className="relative max-w-2xl mx-auto mb-16 group">
-                <div className="absolute inset-y-0 left-0 pl-10 flex items-center pointer-events-none">
-                    <Search className="h-6 w-6 text-slate-400 group-focus-within:text-rose-500 transition-colors" />
+            {/* Search & Filters */}
+            <div className="max-w-7xl mx-auto px-6 mb-12">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 pb-8 border-b border-slate-200">
+                    <div className="relative w-full lg:max-w-md group">
+                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <Search className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+                        </div>
+                        <input
+                            type="text"
+                            className="block w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all text-lg font-bold placeholder:text-slate-400 shadow-sm"
+                            placeholder="Find a template..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 no-scrollbar">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`whitespace-nowrap px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                                    activeCategory === cat 
+                                        ? 'bg-slate-900 text-white shadow-lg' 
+                                        : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 hover:text-slate-900'
+                                }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-                <input
-                    type="text"
-                    className="block w-full pl-20 pr-10 py-7 border-4 border-white rounded-[3rem] bg-white/95 backdrop-blur-3xl placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-8 focus:ring-rose-500/10 focus:border-rose-100 transition-all shadow-2xl text-2xl font-black"
-                    placeholder="Find your perfect template..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
             </div>
 
-            {/* Categories */}
-            <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
-                {categories.map(cat => (
-                    <button
-                        key={cat}
-                        onClick={() => setActiveCategory(cat)}
-                        className={`px-6 py-2 rounded-2xl font-black text-sm transition-all ${
-                            activeCategory === cat 
-                                ? 'bg-gradient-to-r from-rose-400 to-fuchsia-400 text-white shadow-lg shadow-rose-200/50 scale-105' 
-                                : 'bg-white text-slate-400 border border-slate-100 hover:bg-slate-50 hover:text-slate-600 hover:border-slate-200'
-                        }`}
-                    >
-                        {cat}
-                    </button>
-                ))}
+            {/* Gallery Section */}
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="flex items-center gap-3 mb-8">
+                    <TrendingUp size={24} className="text-indigo-600" />
+                    <h2 className="text-2xl font-black">Popular Templates</h2>
+                </div>
+                <MemeGallery memes={filteredMemes} />
+                
+                {filteredMemes.length === 0 && (
+                    <div className="py-20 text-center">
+                        <div className="bg-slate-100 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                            <ImageIcon size={32} className="text-slate-400" />
+                        </div>
+                        <h3 className="text-xl font-black text-slate-900 mb-2">No templates found</h3>
+                        <p className="text-slate-500 font-medium">Try searching for something else or upload your own.</p>
+                    </div>
+                )}
             </div>
-
-            {/* Gallery */}
-            <MemeGallery memes={filteredMemes} />
         </div>
     );
 };

@@ -1,77 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-blue-50: #eff6ff;
-  --color-brand-blue-100: #dbeafe;
-  --color-brand-blue-500: #3b82f6;
-  --color-brand-blue-600: #2563eb;
-  --color-brand-blue-700: #1d4ed8;
-  --color-surface-50: #f8fafc;
-  --color-surface-100: #f1f5f9;
+  --color-brand-primary: #4f46e5;
+  --color-brand-secondary: #10b981;
+  --color-brand-accent: #f59e0b;
+  --color-surface-50: #f9fafb;
+  --color-surface-100: #f3f4f6;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Outfit", ui-serif, Georgia, serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  @apply text-slate-800 font-sans antialiased min-h-screen selection:bg-rose-200 selection:text-rose-900 overflow-x-hidden;
-  background: 
-    radial-gradient(at 0% 0%, hsla(253,16%,12%,1) 0, transparent 60%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,25%,1) 0, transparent 60%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,25%,1) 0, transparent 60%), 
-    radial-gradient(at 50% 50%, hsla(280,40%,20%,1) 0, transparent 70%),
-    radial-gradient(at 0% 100%, hsla(339,49%,25%,1) 0, transparent 60%), 
-    radial-gradient(at 50% 100%, hsla(225,34%,35%,1) 0, transparent 60%), 
-    radial-gradient(at 100% 100%, hsla(253,16%,12%,1) 0, transparent 60%);
-  background-color: #020408;
+  @apply text-slate-800 font-sans antialiased min-h-screen selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden;
+  background-color: #f9fafb;
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.03) 0, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.03) 0, transparent 50%);
   background-attachment: fixed;
-  animation: mesh 40s ease-in-out infinite;
-  background-size: 200% 200%;
 }
 
-@keyframes mesh {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 100%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 0%; }
-  100% { background-position: 0% 50%; }
+/* Premium Surface Elements */
+.premium-card {
+  @apply bg-white border border-slate-200/60 shadow-sm transition-all duration-300;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
 }
 
-/* Premium V4 "Bold & Neat" Surface */
-.magic-surface {
-  @apply bg-white/90 backdrop-blur-xl border border-white shadow-2xl;
-  box-shadow: 
-    0 20px 50px -12px rgba(0, 0, 0, 0.25), 
-    0 8px 16px -8px rgba(0, 0, 0, 0.1);
+.premium-card:hover {
+  @apply border-indigo-200 shadow-xl -translate-y-1;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
-.magic-surface:hover {
-  @apply bg-white border-rose-200/50;
-  box-shadow: 
-    0 30px 60px -12px rgba(0, 0, 0, 0.35), 
-    0 12px 24px -8px rgba(0, 0, 0, 0.2);
+.glass-nav {
+  @apply bg-white/80 backdrop-blur-md border-b border-white/20 sticky top-0 z-50;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
 }
 
 .magic-text {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 via-indigo-400 via-emerald-400 to-rose-400;
-  background-size: 200% auto;
-  animation: textShine 5s linear infinite;
-}
-
-@keyframes textShine {
-  to { background-position: 200% center; }
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-emerald-500 font-black;
 }
 
 h1, h2, h3 {
-  font-family: var(--font-serif);
-  @apply font-black text-slate-800 tracking-tighter;
+  font-family: var(--font-display);
+  @apply font-black tracking-tight text-slate-900;
 }
 
+/* Zebra-like Action Buttons */
+.btn-primary {
+  @apply px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95 flex items-center justify-center gap-2;
+}
 
+.btn-secondary {
+  @apply px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-2xl border border-slate-200 shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2;
+}
 
 /* Custom scrollbar for modern feel */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -79,9 +64,15 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full;
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
